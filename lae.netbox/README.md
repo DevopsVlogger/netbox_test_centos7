@@ -231,6 +231,27 @@ See `examples/` for more.
 [ListenStream]: https://www.freedesktop.org/software/systemd/man/systemd.socket.html#ListenStream=
 [as long as uWSGI supports it]: http://uwsgi-docs.readthedocs.io/en/latest/Logging.html#pluggable-loggers
 
+Steps in order to deploy netbox on CentOS 7 -
+ansible-galaxy install geerlingguy.postgresql
+ansible-galaxy install lae.netbox
+wget https://download.postgresql.org/pub/repos/yum/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-3.noarch.rpm --no-check-certificate
+yum localinstall -y pgdg-centos94-9.4-3.noarch.rpm 
+yum -y groupinstall "PostgreSQL Database Server 9.4 PGDG"
+If it throws certificate error means there is a date conflict 
+date -s 20180104
+systemctl enable postgresql-9.4.service
+systemctl start postgresql-9.4.service
 
+Changes were made to 
+/etc/ansible/roles/geerlingguy.postgresql/vars/RedHat-7.yml for postgresql 9.4 version
+Added export PATH=/usr/pgsql-9.4/bin:$PATH to local users .bashrc in order to make psql command run for postgres user
+sudo -i -u postgres
 ansible-playbook -i /etc/ansible/hosts -l netbox_server /etc/ansible/roles/lae.netbox/examples/playbook_single_host_deploy.yml 
+
+Finally pushed both the roles to this test repo -
+git clone https://github.com/RakeshJain/netbox_test_centos7.git
+cp -rvpf /etc/ansible/roles/* netbox_test_centos7/
+git add *
+git commit -m "postgres and netbox roles from lae and geerlingguy" 
+git push -u origin master
 
