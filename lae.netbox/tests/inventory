@@ -1,0 +1,13 @@
+[netbox:children]
+netbox-stable
+netbox-git
+
+[netbox-stable]
+test[01:02].lxc
+
+[netbox-git]
+test[03:04].lxc
+
+[netbox-python2]
+test02.lxc
+test04.lxc
