@@ -230,3 +230,7 @@ See `examples/` for more.
 [Optional Settings]: http://netbox.readthedocs.io/en/stable/configuration/optional-settings/
 [ListenStream]: https://www.freedesktop.org/software/systemd/man/systemd.socket.html#ListenStream=
 [as long as uWSGI supports it]: http://uwsgi-docs.readthedocs.io/en/latest/Logging.html#pluggable-loggers
+
+
+ansible-playbook -i /etc/ansible/hosts -l netbox_server /etc/ansible/roles/lae.netbox/examples/playbook_single_host_deploy.yml 
+
